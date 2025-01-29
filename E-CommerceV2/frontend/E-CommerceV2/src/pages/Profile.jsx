@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import API_URL from "../config"; // Import API URL from config.js
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -8,7 +9,7 @@ const Profile = () => {
 
   // Fetch user data
   useEffect(() => {
-    axios.get("http://localhost:5000/api/auth/me", { withCredentials: true }) 
+    axios.get(`${API_URL}/api/auth/me`, { withCredentials: true }) 
       .then(response => {
         console.log("User data fetched:", response.data);
         setUser(response.data);
@@ -21,7 +22,7 @@ const Profile = () => {
   // Logout function
   const handleLogout = async () => {
     try {
-      await axios.post("http://localhost:5000/api/auth/logout", {}, { withCredentials: true });
+      await axios.post(`${API_URL}/api/auth/logout`, {}, { withCredentials: true });
       navigate("/"); // Redirect to home page after logout
     } catch (error) {
       console.error("Logout failed:", error);
@@ -50,13 +51,13 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    justifyContent: "flex-start", // Moves content closer to the top
+    justifyContent: "flex-start", 
     height: "30vh",
     textAlign: "center",
-    paddingTop: "50px", // Adjust the space from the top
+    paddingTop: "50px", 
   },
   title: {
-    fontSize: "3rem", // Bigger Title
+    fontSize: "3rem", 
     fontWeight: "bold",
     marginBottom: "20px",
   },
@@ -67,13 +68,13 @@ const styles = {
     textAlign: "left",
   },
   info: {
-    fontSize: "1.8rem", // Make user details bigger
+    fontSize: "1.8rem", 
     marginBottom: "15px",
   },
   logoutButton: {
     marginTop: "25px",
     padding: "12px 20px",
-    fontSize: "1.5rem", // Bigger logout button
+    fontSize: "1.5rem", 
     backgroundColor: "#ff3333",
     color: "white",
     border: "none",
